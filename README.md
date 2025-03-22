@@ -44,7 +44,7 @@ Gabriel de Souza Grego - Desenvolvedor Frontend (não atuou nesse código)
   
 
 ## Desenho Arquitetura
-![enter image description here](https://i.ibb.co/MxnCYmTx/Desenho-Arquitetura.jpg)
+![Link imagem do desenho da arquitetura](https://i.ibb.co/MxnCYmTx/Desenho-Arquitetura.jpg)
 
 
 
