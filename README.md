@@ -52,7 +52,7 @@ Gabriel de Souza Grego - Desenvolvedor Frontend (não atuou nesse código)
 
   
 
-[LINK PARA O VIDEO DO ENTREGAVEL DA SPRINT](https://youtu.be/RbPImoza8TM)
+[LINK PARA O VIDEO DO ENTREGAVEL DA SPRINT](https://youtu.be/_pW4yQQ2Sys)
   
 
 ## 🦷 Descrição
