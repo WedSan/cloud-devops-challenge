@@ -22,7 +22,7 @@ Gabriel de Souza Grego - Desenvolvedor Frontend (não atuou nesse código)
 
 ## Desenho Arquitetura
 
-![Link imagem do desenho da arquitetura](https://i.ibb.co/HcHtYGG/devops-diagram-v2-drawio.png)
+![Link imagem do desenho da arquitetura](https://raw.githubusercontent.com/WedSan/cloud-devops-challenge/refs/heads/main/asset/devops_diagram.drawio.png)
 
  
 ## Video S P R I N T
