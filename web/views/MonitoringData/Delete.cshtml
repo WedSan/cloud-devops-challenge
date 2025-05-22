@@ -1,0 +1,28 @@
+﻿@model Domain.Entities.MonitoringData
+
+@{
+    ViewData["Title"] = "Delete Monitoring Data";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+@Html.Partial("_Header")
+<h2>Delete Monitoring Data</h2>
+
+<p>Are you sure you want to delete the monitoring data for User ID: @Model.User.Id?</p>
+
+<form method="post" action="@Url.Action("ConfirmDelete", "MonitoringData", new { monitoringDataId = Model.Id })">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="monitoringDataId" value="@Model.Id"/>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+</form>
+</body>
+</html>

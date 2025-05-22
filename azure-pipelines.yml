@@ -1,0 +1,88 @@
+﻿trigger:
+  - main  
+
+variables:
+  - group: ACR-VARIABLES  
+  
+  - name: projectName
+    value: '$(PROJECT_NAME)'
+  - name: dockerfilePath
+    value: './Dockerfile'
+  - name: azureSubscription
+    value: 'devops-sprint-4'
+  - name: azureDockerRegistry
+    value: 'devops-sprint-3-acr-connection'
+  - name: acrName
+    value: '$(ACR_NAME)'
+  - name: acrLoginServer
+    value: '$(acrName).azurecr.io'
+  - name: imageRepository
+    value: '$(projectName)'
+  - name: tag
+    value: '$(Build.BuildId)'
+  - name: aciResourceGroup
+    value: '$(RESOURCE_GROUP)'
+  - name: aciName
+    value: '$(projectName)-container'
+
+pool:
+  name: 'devops-agent-pool-pipelines'
+
+stages:
+  - stage: Build
+    displayName: 'Build e Push da Imagem'
+    jobs:
+      - job: BuildAndPush
+        displayName: 'Construir e Publicar Imagem Docker'
+        steps:
+          - checkout: self
+          
+          - task: Docker@2
+            displayName: 'Login no ACR'
+            inputs:
+              command: login
+              containerRegistry: $(azureDockerRegistry)
+          
+          - task: Docker@2
+            displayName: 'Build e Push da Imagem'
+            inputs:
+              command: buildAndPush
+              repository: $(projectName)
+              dockerfile: $(dockerfilePath)
+              containerRegistry: $(azureDockerRegistry)
+              tags: |
+                $(tag)
+                latest
+
+  - stage: Deploy
+    displayName: 'Deploy para ACI'
+    dependsOn: Build
+    jobs:
+      - job: DeployToACI
+        displayName: 'Deploy para Azure Container Instance'
+        steps:
+          - task: AzureCLI@2
+            displayName: 'Deploy para ACI'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az container delete --resource-group $(aciResourceGroup) --name $(aciName) --yes || true
+                
+                az container create \
+                  --resource-group $(aciResourceGroup) \
+                  --name $(aciName) \
+                  --image $(acrLoginServer)/$(imageRepository):$(tag) \
+                  --registry-login-server $(acrLoginServer) \
+                  --os-type linux \
+                  --registry-username $(acrName) \
+                  --registry-password $(ACR_PASSWORD) \
+                  --dns-name-label $(aciName) \
+                  --ports 80 \
+                  --environment-variables ASPNETCORE_URLS=http://0.0.0.0:80 \
+                  --environment-variables ConnectionString="$(ConnectionString)" \
+                  --cpu 1 \
+                  --memory 1.5
+                
+                echo "Aplicação implantada em: http://$(aciName).$(aciResourceGroup).azurecontainer.io"

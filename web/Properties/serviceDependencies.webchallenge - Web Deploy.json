@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/challenge-sprint-3/apis/web-challenge-sprint3",
+      "type": "apis.azure"
+    }
+  }
+}

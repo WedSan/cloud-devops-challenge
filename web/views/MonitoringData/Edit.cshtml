@@ -1,0 +1,32 @@
+﻿@model web.DTO.DataMonitoring.UpdateMonitoringDataRequest
+
+@{
+    ViewData["Title"] = "Edit Monitoring Data";
+    var monitoringId = ViewData["monitoringDataId"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+@Html.Partial("_Header")
+<h2>Edit Monitoring Data</h2>
+
+<form method="post" action="@Url.Action("Edit", "MonitoringData", new { monitoringDataId = monitoringId })">
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <label for="UserId">new user ID</label>
+        <input type="text" class="form-control" id="UserId" name="UserId" value="@Model.UserId" required/>
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary">Update Monitoring Data</button>
+</form>
+</body>
+</html>

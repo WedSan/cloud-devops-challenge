@@ -1,0 +1,47 @@
+﻿@model IEnumerable<web.DTO.DentalHistory.web.DTO.DentalHistory.DentalHistoryResponse>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+@Html.Partial("_Header")
+
+
+<div class="container flex-column justify-content-center mt-5">
+    <h2>Dental History Records</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Consultation Date</th>
+            <th>Tooth Condition</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.UserId</td>
+                <td>@item.ConsultationDate.ToShortDateString()</td>
+                <td>@item.ToothCondition</td>
+                <td>
+                    <a href="@Url.Action("Edit", "DentalHistory", new { dentalHistoryId = item.Id })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("Delete", "DentalHistory", new { dentalHistoryId = item.Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <a href="@Url.Action("Create", "DentalHistory")" class="btn btn-success">Add New Dental History</a>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿@model web.DTO.User.UpdateEmailRequest
+
+@{
+ViewData["Title"] = "Update Email";
+var userId = ViewData["UserId"]; // Access the passed user id from ViewData
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+@Html.Partial("_Header")
+<h2>Update Email</h2>
+
+<form method="post" action="@Url.Action("EditEmail", "User", new { id = userId })">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" asp-for="Email" required/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Email</button>
+</form>
+</body>
+</html>
